@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Dropdown Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      font-weight: bold;
+    }
+    select {
+      width: 200px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    p {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dynamic Dropdown Example</h1>
+  <div class="form-group">
+    <label for="category">Select Category:</label>
+    <select id="category">
+      <option value="">-- Select a Category --</option>
+      <option value="fruits">Fruits</option>
+      <option value="animals">Animals</option>
+      <option value="colors">Colors</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="item">Select Item:</label>
+    <select id="item">
+      <option value="">-- Select an Item --</option>
+    </select>
+  </div>
+  <p id="selectedItem">Selected Item: None</p>
+
+  <script>
+    // Data for dropdown options
+    const data = {
+      fruits: ["Apple", "Banana", "Mango", "Orange", "Strawberry"],
+      animals: ["Cat", "Dog", "Elephant", "Lion", "Tiger"],
+      colors: ["Red", "Green", "Blue", "Yellow", "Purple"]
+    };
+
+    // Select DOM elements
+    const categoryDropdown = document.getElementById('category');
+    const itemDropdown = document.getElementById('item');
+    const selectedItemParagraph = document.getElementById('selectedItem');
+
+    // Event listener for category dropdown
+    categoryDropdown.addEventListener('change', () => {
+      const selectedCategory = categoryDropdown.value;
+
+      // Clear and populate the item dropdown
+      itemDropdown.innerHTML = '<option value="">-- Select an Item --</option>';
+      if (data[selectedCategory]) {
+        data[selectedCategory].forEach(item => {
+          const option = document.createElement('option');
+          option.value = item;
+          option.textContent = item;
+          itemDropdown.appendChild(option);
+        });
+      }
+
+      // Clear the selected item paragraph
+      selectedItemParagraph.textContent = 'Selected Item: None';
+    });
+
+    // Event listener for item dropdown
+    itemDropdown.addEventListener('change', () => {
+      const selectedItem = itemDropdown.value;
+      selectedItemParagraph.textContent = `Selected Item: ${selectedItem || 'None'}`;
+    });
+  </script>
+</body>
+</html>
